@@ -3,35 +3,49 @@ var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var app = express();
 
-var connection = mysql.createConnection({
+var jsonParser = bodyParser.json();
+var pool = mysql.createPool({
+	connectionLimit: 100, //important
 	host: 'eu-cdbr-west-01.cleardb.com',
 	user: 'bda4bbdeef160c',
 	password: 'c704940c',
-	database: 'heroku_5bc3f1207d82f19'
+	database: 'heroku_5bc3f1207d82f19',
+	debug: false
 });
 
-connection.connect(function (err) {
-	if (!err) {
-		console.log("Database is connected ... nn");
-	} else {
-		console.log("Error connecting database ... nn");
-	}
-});
+function handle_database(req, res) {
 
-var jsonParser = bodyParser.json();
+	pool.getConnection(function (err, connection) {
+		if (err) {
+			res.json({"code": 100, "status": "Error in connection database"});
+			return;
+		}
+
+		console.log('connected as id ' + connection.threadId);
+
+		connection.query('INSERT INTO `alarms` (`id`, `user`, `game`) VALUES ("0", ?, ?)', [req.body.id, req.body.game], function (error, results, fields) {
+			connection.release();
+			if (!err) {
+				res.json(rows);
+			}
+		});
+
+		connection.on('error', function (err) {
+			res.json({"code": 100, "status": "Error in connection database"});
+			return;
+		});
+	});
+}
+
 
 app.get('/', (req, res) => {
 	res.send('Hello World!1111');
 });
 
 app.post('/alarms/new', jsonParser, (req, res) => {
-	const query = connection.query('INSERT INTO `alarms` (`id`, `user`, `game`) VALUES ("0", ?, ?)', [req.body.id, req.body.game], function (error, results, fields) {
-		if (error) throw error;
-		// ...
-	});
-	res.send(query.sql);
+	handle_database(req, res);
 });
 
 app.listen(process.env.PORT || 5000, function () {
-	console.log('Example app listening on port ' + process.env.PORT || 5000);
+	console.log('alarme listening on port ' + process.env.PORT || 5000);
 });
