@@ -23,7 +23,7 @@ function handle_database(req, res) {
 
 		console.log('connected as id ' + connection.threadId);
 
-		connection.query('INSERT INTO `alarms` (`id`, `user`, `game`) VALUES ("0", ?, ?)', [req.body.id, req.body.game], function (error, results, fields) {
+		connection.query('INSERT INTO `alarms` (`id`, `user`, `game`) VALUES ("0", ?, ?)', [req.body.id, req.body.game], function(err,rows){
 			connection.release();
 			if (!err) {
 				res.json(rows);
