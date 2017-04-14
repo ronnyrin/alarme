@@ -22,7 +22,17 @@ export default class Schedule extends Component {
 	}
 
 	selectGame(matchId) {
-		// send to server
+		fetch('https://alarme.herokuapp.com/alarms/new', {
+			method: 'POST',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				user: 'some user',
+				game: matchId,
+			})
+		})
 	}
 
 	render() {
