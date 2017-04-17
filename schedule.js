@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {parseString} from 'react-native-xml2js';
 import _ from 'lodash';
+import DeviceInfo from 'react-native-device-info'
 
 export default class Schedule extends Component {
 
@@ -29,7 +30,7 @@ export default class Schedule extends Component {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				user: '1111',
+				user: DeviceInfo.getUniqueID(),
 				game: matchId,
 			})
 		})
