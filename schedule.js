@@ -29,7 +29,7 @@ export default class Schedule extends Component {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				user: 1111,
+				user: '1111',
 				game: matchId,
 			})
 		})

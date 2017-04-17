@@ -10,7 +10,7 @@ var pool = mysql.createPool({
 	user: 'bda4bbdeef160c',
 	password: 'c704940c',
 	database: 'heroku_5bc3f1207d82f19',
-	debug: true
+	debug: false
 });
 
 function handle_database(req, res) {
@@ -23,7 +23,7 @@ function handle_database(req, res) {
 
 		console.log('connected as id ' + connection.threadId);
 
-		connection.query('INSERT INTO `alarms` (`id`, `user`, `game`) VALUES ("0", ?, ?)', [req.body.id, req.body.game], function(err,rows){
+		connection.query('INSERT INTO `alarms` (`id`, `user`, `game`) VALUES ("0", ?, ?)', [req.body.user, req.body.game], function(err,rows){
 			connection.release();
 			if (!err) {
 				res.json(rows);
