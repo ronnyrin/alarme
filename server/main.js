@@ -10,7 +10,7 @@ var pool = mysql.createPool({
 	user: 'bda4bbdeef160c',
 	password: 'c704940c',
 	database: 'heroku_5bc3f1207d82f19',
-	debug: false
+	debug: true
 });
 
 function handle_database(req, res) {
