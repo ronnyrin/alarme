@@ -15,8 +15,6 @@ var pool = mysql.createPool({
 
 function handle_database(req, res) {
 
-	console.log(req.body);
-
 	pool.getConnection(function (err, connection) {
 		if (err) {
 			res.json({"code": 100, "status": "Error in connection database"});

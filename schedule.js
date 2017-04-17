@@ -44,7 +44,7 @@ export default class Schedule extends Component {
 					style={styles.wrapper}
 					dataSource={this.state.dataSource}
 					renderRow={(rowData, sectionID, rowID) => <TouchableHighlight
-						onPress={() => this.selectGame(rowData.MatchId)}><Text
+						onPress={() => this.selectGame(rowData.MatchId[0])}><Text
 						style={styles.row}>{rowData.MatchupDisplayLine}</Text></TouchableHighlight>}
 				/>
 			</View>
