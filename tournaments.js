@@ -7,7 +7,7 @@ import {
 	View
 } from 'react-native';
 import {parseString} from 'react-native-xml2js';
-
+import Navigation from 'react-native-navigation';
 
 export default class Tournaments extends Component {
 	constructor(props) {
@@ -20,16 +20,11 @@ export default class Tournaments extends Component {
 	}
 
 	clickOnTournament(rowID) {
-		this.props.navigator.push({
-			screen: 'alarme.Schedule', // unique ID registered with Navigation.registerScreen
-			title: 'Schedule', // navigation bar title of the pushed screen (optional)
-			// titleImage: require('../../img/my_image.png'), //navigation bar title image instead of the title text of the pushed screen (optional)
-			passProps: {t_id: rowID}, // simple serializable object that will pass as props to the pushed screen (optional)
-			animated: true, // does the push have transition animation or does it happen immediately (optional)
-			backButtonTitle: undefined, // override the back button title (optional)
-			backButtonHidden: false, // hide the back button altogether (optional)
-			navigatorStyle: {}, // override the navigator style for the pushed screen (optional)
-			navigatorButtons: {} // override the nav buttons for the pushed screen (optional)
+		Navigation.push(this.props.containerId, {
+			name: 'alarme.Schedule',
+			passProps: {
+				t_id: rowID
+			}
 		});
 	}
 

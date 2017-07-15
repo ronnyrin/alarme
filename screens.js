@@ -1,10 +1,9 @@
-import {Navigation} from 'react-native-navigation';
+import Navigation from 'react-native-navigation';
 
 import Tournaments from './tournaments';
 import Schedule from './schedule';
 
-// register all screens of the app (including internal ones)
-export function registerScreens() {
-	Navigation.registerComponent('alarme.Tournaments', () => Tournaments);
-	Navigation.registerComponent('alarme.Schedule', () => Schedule);
+export function registerContainers() {
+	Navigation.registerContainer('alarme.Tournaments', () => Tournaments);
+	Navigation.registerContainer('alarme.Schedule', () => Schedule);
 }

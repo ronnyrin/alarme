@@ -2,27 +2,16 @@
 // watch players in this tournament order by seed
 //
 
-import {Navigation} from 'react-native-navigation';
+import Navigation from 'react-native-navigation';
 
-import {registerScreens} from './screens';
-registerScreens(); // this is where you register all of your app's screens
+import {registerContainers} from './screens';
+registerContainers();
 
 // start the app
-Navigation.startTabBasedApp({
-	tabs: [
-		{
-			label: 'Tournaments',
-			screen: 'alarme.Tournaments', // this is a registered name for a screen
-			// icon: require('../img/one.png'),
-			// selectedIcon: require('../img/one_selected.png'), // iOS only
-			title: 'Tournaments'
+Navigation.events().onAppLaunched(() => {
+	Navigation.setRoot({
+		container: {
+			name: 'alarme.Tournaments'
 		}
-		/*{
-			label: 'MyAlarms',
-			screen: 'alarme.MyAlarms',
-			// icon: require('../img/two.png'),
-			// selectedIcon: require('../img/two_selected.png'), // iOS only
-			title: 'MyAlarms'
-		}*/
-	]
+	});
 });
